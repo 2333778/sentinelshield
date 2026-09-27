@@ -12,4 +12,4 @@ A lightweight Web Application Firewall (WAF) and Intrusion Detection System.
 1. Activate venv: `venv\Scripts\activate`
 2. Install deps: `pip install -r requirements.txt`
 3. Run: `python app.py`
-4. Open: http://127.0.0.1:5000
+4. Open: http://127.0.0.1:5000"# sentinelshield" 
