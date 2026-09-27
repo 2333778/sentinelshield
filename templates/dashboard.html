@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SentinelShield Dashboard</title>
+    <meta http-equiv="refresh" content="5">
+    <style>
+        body { font-family: Arial, sans-serif; background:#111; color:#eee; padding:20px; }
+        h1 { color:#4caf50; }
+        .cards { display:flex; gap:15px; margin-bottom:20px; }
+        .card { background:#222; padding:15px 25px; border-radius:8px; min-width:120px; text-align:center; }
+        .card h2 { margin:0; font-size:28px; }
+        .card p { margin:5px 0 0; color:#aaa; font-size:13px; }
+        table { width:100%; border-collapse:collapse; margin-top:10px; }
+        th, td { padding:6px 10px; border-bottom:1px solid #333; text-align:left; font-size:13px; }
+        th { background:#1a1a1a; color:#4caf50; }
+        .block { color:#f44336; font-weight:bold; }
+        .allow { color:#4caf50; }
+        .flag  { color:#ff9800; }
+    </style>
+</head>
+<body>
+    <h1>SentinelShield — Live Dashboard</h1>
+
+    <div class="cards">
+        <div class="card"><h2>{{ total }}</h2><p>Total Events</p></div>
+        <div class="card"><h2 style="color:#f44336">{{ blocked }}</h2><p>Blocked</p></div>
+        <div class="card"><h2 style="color:#4caf50">{{ allowed }}</h2><p>Allowed</p></div>
+        <div class="card"><h2 style="color:#ff9800">{{ flagged }}</h2><p>Flagged</p></div>
+    </div>
+
+    <h3>Attacks by Category</h3>
+    <table>
+        <tr><th>Category</th><th>Count</th></tr>
+        {% for cat, count in categories.items() %}
+        <tr><td>{{ cat }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>Top IPs</h3>
+    <table>
+        <tr><th>IP</th><th>Requests</th></tr>
+        {% for ip, count in top_ips %}
+        <tr><td>{{ ip }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+    </table>
+
+    <h3>Last 20 Events</h3>
+    <table>
+        <tr><th>Time</th><th>IP</th><th>Method</th><th>Path</th><th>Category</th><th>Action</th><th>Status</th></tr>
+        {% for r in recent %}
+        <tr>
+            <td>{{ r.timestamp }}</td>
+            <td>{{ r.ip }}</td>
+            <td>{{ r.method }}</td>
+            <td>{{ r.path }}</td>
+            <td>{{ r.category }}</td>
+            <td class="{{ r.action }}">{{ r.action }}</td>
+            <td>{{ r.status_code }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
